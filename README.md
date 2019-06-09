@@ -11,7 +11,7 @@ Saw this idea on Reddit and thought it was pretty funny. Made a helloworld brute
         A string to bruteforce (default "hello world")
 ```
 
-Best ran after resetting terminal, since it uses terminal control characters to update the display:  
+Best ran in a clear terminal, since it uses control characters to update the console in place:  
 
 ```
 reset && go run main.go -w 'Hello world 👾🐈🏀🎸🍩🤯'
