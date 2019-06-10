@@ -19,16 +19,25 @@ func randChar() string {
 
 func main() {
 	start := time.Now() // Start duration timer
-	rand.Seed(time.Now().UnixNano()) // Initialize the random number generator
 	stringPtr := flag.String("w", "hello world", "A string to bruteforce") // Setup command line flags
+	benchmarkPtr := flag.Bool("b", false, "Enables benchmark mode if set (same random number generator each time)")
 	flag.Parse()
 	targetString := *stringPtr
+	benchmarkMode := *benchmarkPtr
 	buf := []byte(targetString) 
 	// fmt.Println("bytes =", len(buf))
 	// fmt.Println("runes =", utf8.RuneCount(buf))
 	targetRunes := []rune(targetString) // Get runes from string
+	guesses := 0 // Count of guesses/attempts
 
-	fmt.Println("Target String: " + targetString + " (Length: " + strconv.Itoa(utf8.RuneCount(buf)) + ") \n")
+	// Initialize the random number generator
+	if benchmarkMode {
+		rand.Seed(1) // Use the same RNG each time if in benchmark mode
+	} else {
+		rand.Seed(time.Now().UnixNano()) // Use a random seed
+	}
+
+	fmt.Println("Target String: " + targetString + " (Length: " + strconv.Itoa(utf8.RuneCount(buf)) + ")\n")
 	
 	count := 0
 	for count < utf8.RuneCount(buf) {
@@ -45,11 +54,11 @@ func main() {
 				currentBuf = append(currentBuf[:], char...)
 				pos ++
 				count ++
-				char = randChar() // Get a new random character for next time
 			} else {
 				fmt.Println("\033[3;0H" + "No match, looking for: " + string(targetRunes[pos]))
-				char = randChar() // Get a new random character for next time
 			}
+			char = randChar() // Get a new random character for next time
+			guesses ++ 
 			fmt.Println("\033[5;0H" + string(currentBuf))
 		}
 	}
@@ -57,6 +66,6 @@ func main() {
 	pausedTime := utf8.RuneCount(buf) * pauseDuration
 	elapsed := (time.Since(start) - (time.Duration(pausedTime) * time.Millisecond)) // Subtract time of match pauses
 	
-	fmt.Printf("\nBruteforcing completed in %s.\n", elapsed)
+	fmt.Printf("\nBruteforcing completed in %s \nTotal combinations guessed: %s \nBenchmark mode: %s\n", elapsed, strconv.Itoa(guesses), strconv.FormatBool(benchmarkMode))
 }
 

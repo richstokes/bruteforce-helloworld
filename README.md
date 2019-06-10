@@ -1,6 +1,6 @@
 ## Overview
 
-Saw this idea on Reddit and thought it was pretty funny. Made a helloworld bruteforcer, but with full unicode support.  
+Saw this idea on Reddit and thought it sounded fun. Made a helloworld bruteforcer, with full unicode support.  
 
 &nbsp;  
 
@@ -8,7 +8,8 @@ Saw this idea on Reddit and thought it was pretty funny. Made a helloworld brute
 
 ```
   -w string
-        A string to bruteforce (default "hello world")
+        A string to bruteforce (default "hello world")  
+  -b    Enables benchmark mode if set (same random number generator each time)
 ```
 
 Best ran in a clear terminal, since it uses control characters to update the console in place:  
