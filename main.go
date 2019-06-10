@@ -20,7 +20,7 @@ func randChar() string {
 func main() {
 	start := time.Now() // Start duration timer
 	stringPtr := flag.String("w", "hello world", "A string to bruteforce") // Setup command line flags
-	benchmarkPtr := flag.Bool("b", false, "Enables benchmark mode if set (same random number generator each time)")
+	benchmarkPtr := flag.Bool("b", false, "Enables benchmark mode if set (Use same random number generator each time)")
 	flag.Parse()
 	targetString := *stringPtr
 	benchmarkMode := *benchmarkPtr
@@ -28,7 +28,7 @@ func main() {
 	// fmt.Println("bytes =", len(buf))
 	// fmt.Println("runes =", utf8.RuneCount(buf))
 	targetRunes := []rune(targetString) // Get runes from string
-	guesses := 0 // Count of guesses/attempts
+	guesses := uint64(0) // Count of guesses/attempts
 
 	// Initialize the random number generator
 	if benchmarkMode {
@@ -66,6 +66,6 @@ func main() {
 	pausedTime := utf8.RuneCount(buf) * pauseDuration
 	elapsed := (time.Since(start) - (time.Duration(pausedTime) * time.Millisecond)) // Subtract time of match pauses
 	
-	fmt.Printf("\nBruteforcing completed in %s \nTotal combinations guessed: %s \nBenchmark mode: %s\n", elapsed, strconv.Itoa(guesses), strconv.FormatBool(benchmarkMode))
+	fmt.Printf("\nBruteforcing completed in %s \nTotal combinations guessed: %d \nBenchmark mode: %s\n", elapsed, guesses, strconv.FormatBool(benchmarkMode))
 }
 
