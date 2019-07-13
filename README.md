@@ -15,5 +15,5 @@ Saw this idea on Reddit and thought it sounded fun. Made a helloworld bruteforce
 ### Example
 
 ```
-reset && go run main.go -w 'Hello world 👾🐈🏀🎸🍩🤯'
+go run main.go -w 'Hello world 👾🐈🏀🎸🍩🤯'
 ```
