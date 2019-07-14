@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
+	"os"
 	"regexp"
 	"strconv"
 	"time"
@@ -97,32 +98,33 @@ func randChar() string {
 
 // Pixel stuff
 func run() {
-	cfg := pixelgl.WindowConfig{
+	cfg := pixelgl.WindowConfig{ // Window parameters
 		Title:  "Bruteforce helloworld",
 		Bounds: pixel.R(0, 0, 1080, 720),
 		VSync:  true,
 	}
+
 	win, err := pixelgl.NewWindow(cfg)
 	if err != nil {
 		panic(err)
 	}
 
+	// Text parameters
 	basicAtlas := text.NewAtlas(basicfont.Face7x13, text.ASCII)
 	basicTxt := text.New(pixel.V(100, 600), basicAtlas)
+	basicTxt.LineHeight = basicAtlas.LineHeight() * 1.3
 
 	PrintMe := RandStringRunes(10)
 
-	// fmt.Fprintf(basicTxt, "And I'm an %s, yay!", "io.Writer")
-
 	for !win.Closed() { // https://github.com/faiface/pixel/wiki/Typing-text-on-the-screen
-		win.Clear(colornames.Black)
+		win.Clear(colornames.Blue)
 		basicTxt.Clear()
 		fmt.Fprintln(basicTxt, header)
 		fmt.Fprintln(basicTxt, line2)
 		fmt.Fprintln(basicTxt, line3)
 		fmt.Fprintln(basicTxt, " ") // line4 blank for readability
-		// A regex to strip random control chars out of the output
-		reg, err := regexp.Compile("[^a-zA-Z0-9 ] *")
+
+		reg, err := regexp.Compile("[^a-zA-Z0-9 ] *") // A regex to strip random control chars out of the output
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -140,7 +142,15 @@ func run() {
 			fmt.Fprintln(basicTxt, "Bruteforcing complete!")
 		}
 
-		basicTxt.Draw(win, pixel.IM.Scaled(basicTxt.Orig, 2))
+		basicTxt.Draw(win, pixel.IM.Scaled(basicTxt.Orig, 2)) // Draw the text
+
+		if win.Pressed(pixelgl.KeyQ) { // Exit if Q pressed
+			os.Exit(0)
+		}
+
+		if win.Pressed(pixelgl.KeyEscape) { // Exit if Esc pressed
+			os.Exit(0)
+		}
 
 		win.Update()
 	}
