@@ -121,7 +121,7 @@ func run() {
 		fmt.Fprintln(basicTxt, line2)
 		fmt.Fprintln(basicTxt, line3)
 		fmt.Fprintln(basicTxt, " ") // line4 blank for readability
-		// Make a Regex to say we only want letters and numbers
+		// A regex to strip random control chars out of the output
 		reg, err := regexp.Compile("[^a-zA-Z0-9 ] *")
 		if err != nil {
 			log.Fatal(err)
