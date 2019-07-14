@@ -3,7 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"math/rand"
+	"regexp"
 	"strconv"
 	"time"
 	"unicode/utf8"
@@ -17,11 +19,6 @@ import (
 
 const maxUnicode = 137928 // http://www.babelstone.co.uk/Unicode/HowMany.html
 const pauseDuration = 250 // Amount of time to pause after finding a match
-
-func randChar() string {
-	randRune := rand.Intn(maxUnicode)
-	return string(randRune)
-}
 
 var header = "Header line"
 var line2 = "line2"
@@ -93,8 +90,12 @@ func bruteforce() {
 	completed = true
 }
 
-// Pixel stuff
+func randChar() string {
+	randRune := rand.Intn(maxUnicode)
+	return string(randRune)
+}
 
+// Pixel stuff
 func run() {
 	cfg := pixelgl.WindowConfig{
 		Title:  "Bruteforce helloworld",
@@ -119,7 +120,14 @@ func run() {
 		fmt.Fprintln(basicTxt, header)
 		fmt.Fprintln(basicTxt, line2)
 		fmt.Fprintln(basicTxt, line3)
-		fmt.Fprintln(basicTxt, " ")
+		fmt.Fprintln(basicTxt, " ") // line4 blank for readability
+		// Make a Regex to say we only want letters and numbers
+		reg, err := regexp.Compile("[^a-zA-Z0-9 ] *")
+		if err != nil {
+			log.Fatal(err)
+		}
+		line5 = reg.ReplaceAllString(line5, "")
+
 		fmt.Fprintln(basicTxt, line5)
 		fmt.Fprintln(basicTxt, " ")
 
@@ -138,7 +146,7 @@ func run() {
 	}
 }
 
-var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
 
 func RandStringRunes(n int) string {
 	b := make([]rune, n)

@@ -2,6 +2,8 @@
 
 Saw this idea on Reddit and thought it sounded fun. Made a helloworld bruteforcer, with full unicode support.  
 
+Requires [pixel](https://github.com/faiface/pixel) for drawing the window.  
+
 &nbsp;  
 
 ## Usage  
