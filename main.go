@@ -54,7 +54,7 @@ func bruteforce() {
 	}
 
 	// fmt.Println("Target String: " + targetString + " (Length: " + strconv.Itoa(utf8.RuneCount(buf)) + ")\n")
-	header = "Target String: " + targetString + " (Length: " + strconv.Itoa(utf8.RuneCount(buf)) + ")"
+	header = "Target String: " + targetString + " \n(Length: " + strconv.Itoa(utf8.RuneCount(buf)) + ")"
 
 	count := 0
 	for count < utf8.RuneCount(buf) {
@@ -111,7 +111,7 @@ func run() {
 
 	// Text parameters
 	basicAtlas := text.NewAtlas(basicfont.Face7x13, text.ASCII)
-	basicTxt := text.New(pixel.V(100, 600), basicAtlas)
+	basicTxt := text.New(pixel.V(100, 200), basicAtlas)
 	basicTxt.LineHeight = basicAtlas.LineHeight() * 1.3
 
 	PrintMe := RandStringRunes(10)

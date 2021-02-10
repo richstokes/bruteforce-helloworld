@@ -1,8 +1,14 @@
 ## Overview
 
-Saw this idea on Reddit and thought it sounded fun. Made a helloworld bruteforcer, with full unicode support.  
+Saw this idea and thought it sounded fun. Made a helloworld bruteforcer, with unicode support.  
 
-Requires [pixel](https://github.com/faiface/pixel) for drawing the window.  
+Requires [pixel](https://github.com/faiface/pixel) for drawing the window:  
+
+```
+go get github.com/faiface/pixel
+go get github.com/faiface/glhf
+go get github.com/go-gl/glfw/v3.3/glfw
+``` 
 
 &nbsp;  
 
